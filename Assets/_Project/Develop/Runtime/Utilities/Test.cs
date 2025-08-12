@@ -3,13 +3,26 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    [SerializeField] private CoroutinesPerformer _coroutinesPerformerPrefab;
+    const string CoroutinesPerformerPath = "Utilities/CoroutinesPerformer";
 
     private ICoroutinesPerformer _coroutinesPerformer;
+    private ResourcesAssetsLoader _resourcesAssetsLoader;
 
     private void Awake()
     {
-        _coroutinesPerformer = Instantiate(_coroutinesPerformerPrefab);
+        _resourcesAssetsLoader = CreateResourcesAssetsLoader();
+
+        _coroutinesPerformer = CreateCoroutinesPerformer();
+    }
+
+    private ResourcesAssetsLoader CreateResourcesAssetsLoader() => new ResourcesAssetsLoader();
+
+    private CoroutinesPerformer CreateCoroutinesPerformer()
+    {
+        CoroutinesPerformer CoroutinesPerformerPrefab = _resourcesAssetsLoader
+            .Load<CoroutinesPerformer>(CoroutinesPerformerPath);
+
+        return Instantiate(CoroutinesPerformerPrefab);
     }
 
     private void Update()
