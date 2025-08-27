@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using System.Collections;
 using UnityEngine;
 
@@ -7,12 +8,24 @@ public class Test : MonoBehaviour
 
     private ICoroutinesPerformer _coroutinesPerformer;
     private ResourcesAssetsLoader _resourcesAssetsLoader;
+    private ConfigsProviderService _configsProviderService;
 
     private void Awake()
     {
         _resourcesAssetsLoader = CreateResourcesAssetsLoader();
 
         _coroutinesPerformer = CreateCoroutinesPerformer();
+
+        _configsProviderService = CreateConfigsProviderService();
+
+        _coroutinesPerformer.StartPerform(LoadConfigs());
+    }
+
+    private ConfigsProviderService CreateConfigsProviderService()
+    {
+        ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(_resourcesAssetsLoader);
+
+        return new ConfigsProviderService(resourcesConfigsLoader);
     }
 
     private ResourcesAssetsLoader CreateResourcesAssetsLoader() => new ResourcesAssetsLoader();
@@ -27,14 +40,17 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-            _coroutinesPerformer.StartPerform(TestCoroutine());
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            TestConfig config = _configsProviderService.GetConfig<TestConfig>();
+            Debug.Log(config.Damage);
+        }
     }
 
-    private IEnumerator TestCoroutine()
+    private IEnumerator LoadConfigs()
     {
-        Debug.Log("Start");
-        yield return new WaitForSeconds(1);
-        Debug.Log("End");
+        Debug.Log("StartLoadConfigs");
+        yield return _configsProviderService.LoadAsync();
+        Debug.Log("EndLoadConfigs");
     }
 }
