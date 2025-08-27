@@ -1,7 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Test", fileName = "TestConfig")]
-public class TestConfig : ScriptableObject
+namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
 {
-    [field: SerializeField] public int Damage {  get; private set; }
+    [CreateAssetMenu(menuName = "Test", fileName = "TestConfig")]
+    public class TestConfig : ScriptableObject
+    {
+        [field: SerializeField] public int Damage { get; private set; }
+    }
 }

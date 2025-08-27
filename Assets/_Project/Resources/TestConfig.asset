@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebe9c1bb1b88d4a82402d3c7587434, type: 3}
   m_Name: TestConfig
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 0
+  <Damage>k__BackingField: 10
