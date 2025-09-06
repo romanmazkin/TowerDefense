@@ -19,7 +19,6 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
 
         private readonly Dictionary<Type, string> _configsResourcesPaths = new()
         {
-            {typeof(TestConfig), "TestConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
