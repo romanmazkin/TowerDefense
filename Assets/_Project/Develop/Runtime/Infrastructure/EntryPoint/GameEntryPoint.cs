@@ -1,5 +1,6 @@
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -10,14 +11,17 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
     {
         ICoroutinesPerformer _coroutinesPerformer;
         ConfigsProviderService _configProviderService;
+        ILoadingScreen _loadingScreen;
 
         [Inject]
         private void Construct(
-            ICoroutinesPerformer coroutinesPerformer, 
-            ConfigsProviderService configsProviderService)
+            ICoroutinesPerformer coroutinesPerformer,
+            ConfigsProviderService configsProviderService,
+            ILoadingScreen standartLoadingScreen)
         {
             _coroutinesPerformer = coroutinesPerformer;
             _configProviderService = configsProviderService;
+            _loadingScreen = standartLoadingScreen;
         }
 
         private void Awake()
@@ -39,6 +43,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
         {
             Debug.Log("Open loading screen");
 
+            _loadingScreen.Show();
+
             Debug.Log("Start services initialization");
 
             yield return _configProviderService.LoadAsync();
@@ -48,6 +54,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             Debug.Log("End services initialization");
 
             Debug.Log("Close loading screen");
+
+            _loadingScreen.Hide();
 
             Debug.Log("Switch scene");
         }
