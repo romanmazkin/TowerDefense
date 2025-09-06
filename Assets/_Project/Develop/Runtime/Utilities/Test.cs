@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Utilities
 {
@@ -14,33 +15,47 @@ namespace Assets._Project.Develop.Runtime.Utilities
         private ResourcesAssetsLoader _resourcesAssetsLoader;
         private ConfigsProviderService _configsProviderService;
 
+        [Inject]
+        private void Construct(
+            ICoroutinesPerformer coroutinesPerformer,
+            ResourcesAssetsLoader resourcesAssetsLoader,
+            ConfigsProviderService configsProviderService)
+        {
+            _configsProviderService = configsProviderService;
+            _coroutinesPerformer = coroutinesPerformer;
+            _resourcesAssetsLoader = resourcesAssetsLoader;
+        }
+
         private void Awake()
         {
-            _resourcesAssetsLoader = CreateResourcesAssetsLoader();
+            //_resourcesAssetsLoader = CreateResourcesAssetsLoader();
 
-            _coroutinesPerformer = CreateCoroutinesPerformer();
+            //_coroutinesPerformer = CreateCoroutinesPerformer();
+            //_configsProviderService = CreateConfigsProviderService();
 
-            _configsProviderService = CreateConfigsProviderService();
+            //ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(_resourcesAssetsLoader);
 
             _coroutinesPerformer.StartPerform(LoadConfigs());
+
+
         }
 
-        private ConfigsProviderService CreateConfigsProviderService()
-        {
-            ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(_resourcesAssetsLoader);
+        //private ConfigsProviderService CreateConfigsProviderService()
+        //{
+        //    ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(_resourcesAssetsLoader);
 
-            return new ConfigsProviderService(resourcesConfigsLoader);
-        }
+        //    return new ConfigsProviderService(resourcesConfigsLoader);
+        //}
 
-        private ResourcesAssetsLoader CreateResourcesAssetsLoader() => new ResourcesAssetsLoader();
+        //private ResourcesAssetsLoader CreateResourcesAssetsLoader() => new ResourcesAssetsLoader();
 
-        private CoroutinesPerformer CreateCoroutinesPerformer()
-        {
-            CoroutinesPerformer CoroutinesPerformerPrefab = _resourcesAssetsLoader
-                .Load<CoroutinesPerformer>(CoroutinesPerformerPath);
+        //private CoroutinesPerformer CreateCoroutinesPerformer()
+        //{
+        //    CoroutinesPerformer CoroutinesPerformerPrefab = _resourcesAssetsLoader
+        //        .Load<CoroutinesPerformer>(CoroutinesPerformerPath);
 
-            return Instantiate(CoroutinesPerformerPrefab);
-        }
+        //    return Instantiate(CoroutinesPerformerPrefab);
+        //}
 
         private void Update()
         {
