@@ -14,18 +14,27 @@ public class GlobalInstaller : MonoInstaller
     {
         Container.Bind<ResourcesAssetsLoader>().AsSingle();
 
-        Container.BindInterfacesAndSelfTo<CoroutinesPerformer>().
-            FromComponentInNewPrefabResource(CoroutinesPerformerPath).
-            AsSingle();
+        Container.BindInterfacesTo<CoroutinesPerformer>()
+            .FromComponentInNewPrefabResource(CoroutinesPerformerPath)
+            .AsSingle();
 
-        Container.BindInterfacesAndSelfTo<ResourcesConfigsLoader>().AsSingle();
+        Container.BindInterfacesTo<ResourcesConfigsLoader>().AsSingle();
 
         Container.Bind<ConfigsProviderService>().AsSingle();
 
-        Container.Bind<SceneLoaderService>().AsSingle();
+        BindLoader();
 
-        Container.BindInterfacesAndSelfTo<StandartLoadingScreen>().
-            FromComponentsInNewPrefabResource(StandartLoadingScreenPath).
-            AsSingle();
+        Container.BindInterfacesTo<StandartLoadingScreen>()
+            .FromComponentsInNewPrefabResource(StandartLoadingScreenPath)
+            .AsSingle();
+
+
+        Container.Bind<SceneSwitcherService>().AsSingle();
+    }
+
+    private void BindLoader()
+    {
+        Container.Bind<ZenjectSceneLoaderWrapper>().AsSingle();
+        Container.BindInterfacesAndSelfTo<SceneLoaderService>().AsSingle();
     }
 }

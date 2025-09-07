@@ -1,6 +1,7 @@
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -12,16 +13,19 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
         ICoroutinesPerformer _coroutinesPerformer;
         ConfigsProviderService _configProviderService;
         ILoadingScreen _loadingScreen;
+        SceneSwitcherService _sceneSwitcherService;
 
         [Inject]
         private void Construct(
             ICoroutinesPerformer coroutinesPerformer,
             ConfigsProviderService configsProviderService,
-            ILoadingScreen standartLoadingScreen)
+            ILoadingScreen standartLoadingScreen,
+            SceneSwitcherService sceneSwitcherService)
         {
             _coroutinesPerformer = coroutinesPerformer;
             _configProviderService = configsProviderService;
             _loadingScreen = standartLoadingScreen;
+            _sceneSwitcherService = sceneSwitcherService;
         }
 
         private void Awake()
@@ -58,6 +62,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             _loadingScreen.Hide();
 
             Debug.Log("Switch scene");
+
+            yield return _sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu);
         }
     }
 }
