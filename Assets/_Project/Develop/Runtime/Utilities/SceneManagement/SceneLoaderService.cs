@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
 {
-    public class SceneLoaderService : ISimpleSceneLoader, ILevelLoader
+    public class SceneLoaderService : ISceneLoader
     {
         private readonly ZenjectSceneLoaderWrapper _sceneLoaderWrapper;
 
@@ -12,20 +12,12 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
             _sceneLoaderWrapper = sceneLoader;
         }
 
-        public IEnumerator LoadAsync(string sceneName)
-        {
-            if (sceneName == Scenes.Gameplay)
-                throw new ArgumentException($"{Scenes.Gameplay} cannot be started without configuration, use ILevelLoader");
-
-            yield return _sceneLoaderWrapper.LoadAsync(null, sceneName);
-        }
-
-        public IEnumerator LoadAsync(LevelLoadingData levelLoadingData)
+        public IEnumerator LoadAsync(string sceneName, SceneLoadingData sceneLoadingData = null)
         {
             yield return _sceneLoaderWrapper.LoadAsync(container =>
             {
-                container.BindInstance(levelLoadingData);
-            }, Scenes.Gameplay);
+                container.BindInstance(sceneLoadingData);
+            }, sceneName);
         }
     }
 }
