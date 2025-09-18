@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +12,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 {
     public class MainMenuBootstrap : SceneBootstrap
     {
-        private ReactiveVariable<int> _field;
+        private List<IDisposable> _disposables;
 
         SceneSwitcherService _sceneSwitcherService;
         ICoroutinesPerformer _coroutinesPerformer;
@@ -38,14 +39,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override void Run()
         {
             Debug.Log("Start main menu scene");
-
-            _field = new ReactiveVariable<int>(5);
-            _field.Subscribe(OnFieldChanged);
-        }
-
-        private void OnFieldChanged(int arg1, int arg2)
-        {
-            Debug.Log($"Old was {arg1}, new will {arg2}");
         }
 
         private void Update()
@@ -57,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _field.Value++;
+
             }
         }
     }

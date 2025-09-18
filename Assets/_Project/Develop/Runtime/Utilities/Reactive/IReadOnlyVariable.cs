@@ -6,6 +6,6 @@ namespace Assets._Project.Develop.Runtime.Utilities.Reactive
     {
         T Value { get; }
 
-        void Subscribe(Action<T, T> action);
+        IDisposable Subscribe(Action<T, T> action);
     }
 }
