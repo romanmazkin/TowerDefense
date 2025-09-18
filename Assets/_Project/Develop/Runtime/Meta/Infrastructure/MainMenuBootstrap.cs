@@ -1,6 +1,8 @@
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System;
@@ -18,6 +20,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private SceneLoadingData _sceneLoadingData;
         private WalletService _walletService;
 
+        private PlayerData _playerData;
+
         [Inject]
         public void Construct(
             SceneSwitcherService sceneSwitcherService,
@@ -34,6 +38,13 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override IEnumerator Initialize()
         {
             Debug.Log("Init menu");
+
+            _playerData = new PlayerData();
+            _playerData.WalletData = new Dictionary<CurrencyTypes, int>()
+            {
+                {CurrencyTypes.Gold, 10},
+                {CurrencyTypes.Diamond, 150},
+            };
 
             yield break;
         }
@@ -63,6 +74,14 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                     _walletService.Spend(CurrencyTypes.Gold, 10);
                     Debug.Log("Gold " + _walletService.GetCurrency(CurrencyTypes.Gold).Value);
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
             }
         }
     }
