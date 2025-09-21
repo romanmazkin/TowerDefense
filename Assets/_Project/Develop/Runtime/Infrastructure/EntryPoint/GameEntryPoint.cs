@@ -1,5 +1,6 @@
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
@@ -14,18 +15,21 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
         ConfigsProviderService _configProviderService;
         ILoadingScreen _loadingScreen;
         SceneSwitcherService _sceneSwitcherService;
+        PlayerDataProvider _playerDataProvider;
 
         [Inject]
         private void Construct(
             ICoroutinesPerformer coroutinesPerformer,
             ConfigsProviderService configsProviderService,
             ILoadingScreen standartLoadingScreen,
-            SceneSwitcherService sceneSwitcherService)
+            SceneSwitcherService sceneSwitcherService,
+            PlayerDataProvider playerDataProvider)
         {
             _coroutinesPerformer = coroutinesPerformer;
             _configProviderService = configsProviderService;
             _loadingScreen = standartLoadingScreen;
             _sceneSwitcherService = sceneSwitcherService;
+            _playerDataProvider = playerDataProvider;
         }
 
         private void Awake()
@@ -52,6 +56,15 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             Debug.Log("Start services initialization");
 
             yield return _configProviderService.LoadAsync();
+
+            bool isPlayerDataSaveExists = false;
+
+            yield return _playerDataProvider.Exists(result => isPlayerDataSaveExists = result);
+
+            if (isPlayerDataSaveExists)
+                yield return _playerDataProvider.Load();
+            else
+                _playerDataProvider.Reset();
 
             yield return new WaitForSeconds(1f);
 

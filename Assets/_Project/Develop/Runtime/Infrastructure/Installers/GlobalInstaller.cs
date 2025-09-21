@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataRepository;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.KeyStorage;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
@@ -42,6 +43,8 @@ public class GlobalInstaller : MonoInstaller
         Container.Bind<WalletService>().FromMethod(CreateWalletService).AsSingle();
 
         Container.Bind<ISaveLoadService>().To<SaveLoadService>().FromMethod(CreateSaveLoadService).AsSingle();
+
+        Container.Bind<PlayerDataProvider>().AsSingle();
     }
 
     private void BindLoader()
@@ -65,7 +68,7 @@ public class GlobalInstaller : MonoInstaller
         IDataSerializer dataSerializer = new JsonSerializer();
         IDataKeysStorage dataKeysStorage = new MapDataKeysStorage();
 
-        string saveFolderPath = Application.persistentDataPath;
+        string saveFolderPath = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
 
         IDataRepository dataRepository = new LocalFileDataRepository(saveFolderPath, "json");
 

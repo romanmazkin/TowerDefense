@@ -2,10 +2,8 @@ using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement;
-using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
-using Assets._Project.Develop.Runtime.Utilities.Reactive;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,32 +17,26 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private ICoroutinesPerformer _coroutinesPerformer;
         private SceneLoadingData _sceneLoadingData;
         private WalletService _walletService;
-
-        private PlayerData _playerData;
+        private PlayerDataProvider _playerDataProvider;
 
         [Inject]
         public void Construct(
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
             SceneLoadingData sceneLoadingData,
-            WalletService walletService)
+            WalletService walletService,
+            PlayerDataProvider playerDataProvider)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
             _sceneLoadingData = sceneLoadingData;
             _walletService = walletService;
+            _playerDataProvider = playerDataProvider;
         }
 
         public override IEnumerator Initialize()
         {
             Debug.Log("Init menu");
-
-            _playerData = new PlayerData();
-            _playerData.WalletData = new Dictionary<CurrencyTypes, int>()
-            {
-                {CurrencyTypes.Gold, 10},
-                {CurrencyTypes.Diamond, 150},
-            };
 
             yield break;
         }
@@ -78,6 +70,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.S))
             {
+                _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+                Debug.Log("Saved");
             }
 
             if (Input.GetKeyDown(KeyCode.D))
