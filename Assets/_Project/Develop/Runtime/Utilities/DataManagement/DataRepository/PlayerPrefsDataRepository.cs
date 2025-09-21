@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataRepository
 {
-    internal class PlayerPrefsDataRepository : IDataRepository
+    public class PlayerPrefsDataRepository : IDataRepository
     {
         public IEnumerator Exists(string key, Action<bool> onExistsResult)
         {
