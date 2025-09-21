@@ -1,15 +1,26 @@
-﻿using Assets._Project.Develop.Runtime.Utilities.Reactive;
+﻿using Assets._Project.Develop.Runtime.Utilities.DataManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
 {
-    public class WalletService
+    public class WalletService : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
         private readonly Dictionary<CurrencyTypes, ReactiveVariable<int>> _currencies;
 
-        public WalletService(Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies)
+        [Inject]
+        private void Construct(PlayerDataProvider playerDataProvider)
+        {
+            playerDataProvider.RegisterWriter(this);
+            playerDataProvider.RegisterReader(this);
+        }
+
+        public WalletService(
+            Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies)
         {
             _currencies = new Dictionary<CurrencyTypes, ReactiveVariable<int>>(currencies);
         }
@@ -20,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
 
         public bool Enough(CurrencyTypes type, int amount)
         {
-            if(amount < 0)
+            if (amount < 0)
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             return _currencies[type].Value >= amount;
@@ -36,13 +47,35 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
 
         public void Spend(CurrencyTypes type, int amount)
         {
-            if(Enough(type, amount) == false)
+            if (Enough(type, amount) == false)
                 throw new InvalidOperationException("Not enough: " + type.ToString());
 
             if (amount < 0)
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             _currencies[type].Value -= amount;
+        }
+
+        public void ReadFrom(PlayerData data)
+        {
+            foreach (KeyValuePair<CurrencyTypes, int> currency in data.WalletData)
+            {
+                if (_currencies.ContainsKey(currency.Key))
+                    _currencies[currency.Key].Value = currency.Value;
+                else
+                    _currencies.Add(currency.Key, new ReactiveVariable<int>(currency.Value));
+            }
+        }
+
+        public void WriteTo(PlayerData data)
+        {
+            foreach (KeyValuePair<CurrencyTypes, ReactiveVariable<int> > currency in _currencies)
+            {
+                if (data.WalletData.ContainsKey(currency.Key))
+                    data.WalletData[currency.Key] = currency.Value.Value;
+                else
+                    data.WalletData.Add(currency.Key, currency.Value.Value);
+            }
         }
     }
 }

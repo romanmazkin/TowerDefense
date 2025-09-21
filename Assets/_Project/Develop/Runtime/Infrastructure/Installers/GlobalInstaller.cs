@@ -40,9 +40,14 @@ public class GlobalInstaller : MonoInstaller
 
         Container.Bind<SceneSwitcherService>().AsSingle();
 
-        Container.Bind<WalletService>().FromMethod(CreateWalletService).AsSingle();
+        Container.Bind<WalletService>()
+            .FromMethod(CreateWalletService)
+            .AsSingle();
 
-        Container.Bind<ISaveLoadService>().To<SaveLoadService>().FromMethod(CreateSaveLoadService).AsSingle();
+        Container.Bind<ISaveLoadService>()
+            .To<SaveLoadService>()
+            .FromMethod(CreateSaveLoadService)
+            .AsSingle();
 
         Container.Bind<PlayerDataProvider>().AsSingle();
     }
