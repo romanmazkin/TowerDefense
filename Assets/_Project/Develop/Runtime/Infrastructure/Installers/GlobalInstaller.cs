@@ -42,7 +42,8 @@ public class GlobalInstaller : MonoInstaller
 
         Container.Bind<WalletService>()
             .FromMethod(CreateWalletService)
-            .AsSingle();
+            .AsSingle()
+            .NonLazy();
 
         Container.Bind<ISaveLoadService>()
             .To<SaveLoadService>()
@@ -58,14 +59,14 @@ public class GlobalInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<SceneLoaderService>().AsSingle();
     }
 
-    private static WalletService CreateWalletService()
+    private WalletService CreateWalletService()
     {
         Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies = new();
 
         foreach (CurrencyTypes currencyType in Enum.GetValues(typeof(CurrencyTypes)))
             currencies[currencyType] = new ReactiveVariable<int>();
 
-        return new WalletService(currencies);
+        return new WalletService(currencies, Container.Resolve<PlayerDataProvider>());
     }
 
     private static SaveLoadService CreateSaveLoadService()

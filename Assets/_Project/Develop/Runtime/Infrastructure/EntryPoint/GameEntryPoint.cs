@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
@@ -16,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
         ILoadingScreen _loadingScreen;
         SceneSwitcherService _sceneSwitcherService;
         PlayerDataProvider _playerDataProvider;
+        WalletService _walletService;
 
         [Inject]
         private void Construct(
@@ -23,13 +25,15 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
             ConfigsProviderService configsProviderService,
             ILoadingScreen standartLoadingScreen,
             SceneSwitcherService sceneSwitcherService,
-            PlayerDataProvider playerDataProvider)
+            PlayerDataProvider playerDataProvider,
+            WalletService walletService)
         {
             _coroutinesPerformer = coroutinesPerformer;
             _configProviderService = configsProviderService;
             _loadingScreen = standartLoadingScreen;
             _sceneSwitcherService = sceneSwitcherService;
             _playerDataProvider = playerDataProvider;
+            _walletService = walletService;
         }
 
         private void Awake()

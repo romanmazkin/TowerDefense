@@ -1,18 +1,26 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
-using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
 {
     public class PlayerDataProvider : DataProvider<PlayerData>
     {
+        
         private readonly ConfigsProviderService _configsProviderService;
+        //private ISaveLoadService _saveLoadService;
+
+        //[Inject]
+        //private void Construct(ISaveLoadService saveLoadService)
+        //{
+        //    _saveLoadService = saveLoadService;
+        //}
 
         public PlayerDataProvider(
-            ISaveLoadService saveLoadService, 
+            ISaveLoadService saveLoadService,
             ConfigsProviderService configsProviderService) : base(saveLoadService)
         {
             _configsProviderService = configsProviderService;
@@ -33,7 +41,9 @@ namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
             StartWalletConfig walletConfig = _configsProviderService.GetConfig<StartWalletConfig>();
 
             foreach (CurrencyTypes currencyType in Enum.GetValues(typeof(CurrencyTypes)))
+            {
                 walletData[currencyType] = walletConfig.GetValueFor(currencyType);
+            }
 
             return walletData;
         }

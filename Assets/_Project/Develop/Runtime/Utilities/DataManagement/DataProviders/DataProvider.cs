@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
 {
@@ -13,6 +13,12 @@ namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
         private readonly List<IDataWriter<TData>> _writers = new();
 
         private TData _data;
+
+        //[Inject]
+        //private void Construct(ISaveLoadService saveLoadService)
+        //{
+        //    _saveLoadService = saveLoadService;
+        //}
 
         protected DataProvider(ISaveLoadService saveLoadService)
         {

@@ -1,11 +1,9 @@
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.DataManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
