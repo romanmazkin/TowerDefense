@@ -1,5 +1,8 @@
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI;
+using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
@@ -16,6 +19,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private SceneLoadingData _sceneLoadingData;
         private WalletService _walletService;
         private PlayerDataProvider _playerDataProvider;
+        private ProjectPresentersFactory _projectPresentersFactory;
+
+        [SerializeField] private IconTextView _currencyView;
+        private CurrencyPresenter _currencyPresenter;
 
         [Inject]
         public void Construct(
@@ -23,13 +30,15 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             ICoroutinesPerformer coroutinesPerformer,
             SceneLoadingData sceneLoadingData,
             WalletService walletService,
-            PlayerDataProvider playerDataProvider)
+            PlayerDataProvider playerDataProvider,
+            ProjectPresentersFactory projectPresentersFactory)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
             _sceneLoadingData = sceneLoadingData;
             _walletService = walletService;
             _playerDataProvider = playerDataProvider;
+            _projectPresentersFactory = projectPresentersFactory;
         }
 
         public override IEnumerator Initialize()
@@ -74,6 +83,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.D))
             {
+                _currencyPresenter = _projectPresentersFactory.CreateCurrencyPresenter(
+                    _currencyView, 
+                    _walletService.GetCurrency(CurrencyTypes.Gold),
+                    CurrencyTypes.Gold);
+
+                _currencyPresenter.Enable();
             }
         }
     }
