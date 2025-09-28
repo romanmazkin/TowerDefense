@@ -9,15 +9,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
 {
     public class PlayerDataProvider : DataProvider<PlayerData>
     {
-        
         private readonly ConfigsProviderService _configsProviderService;
-        //private ISaveLoadService _saveLoadService;
-
-        //[Inject]
-        //private void Construct(ISaveLoadService saveLoadService)
-        //{
-        //    _saveLoadService = saveLoadService;
-        //}
 
         public PlayerDataProvider(
             ISaveLoadService saveLoadService,

@@ -1,5 +1,6 @@
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -54,6 +55,7 @@ public class GlobalInstaller : MonoInstaller
         Container.Bind<PlayerDataProvider>().AsSingle();
 
         Container.Bind<ProjectPresentersFactory>().AsSingle();
+        Container.Bind<ViewsFactory>().AsSingle();
     }
 
     private void BindLoader()
