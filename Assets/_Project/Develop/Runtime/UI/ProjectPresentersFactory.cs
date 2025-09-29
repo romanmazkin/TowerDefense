@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
@@ -11,11 +12,18 @@ namespace Assets._Project.Develop.Runtime.UI
     public class ProjectPresentersFactory
     {
         private ConfigsProviderService _configProviderService;
+        private WalletService _walletService;
+        private ViewsFactory _viewsFactory;
 
         [Inject]
-        private void Construct(ConfigsProviderService configsProviderService)
+        private void Construct(
+            ConfigsProviderService configsProviderService,
+            WalletService walletService,
+            ViewsFactory viewsFactory)
         {
             _configProviderService = configsProviderService;
+            _walletService = walletService;
+            _viewsFactory = viewsFactory;
         }
 
         public CurrencyPresenter CreateCurrencyPresenter(
@@ -28,6 +36,11 @@ namespace Assets._Project.Develop.Runtime.UI
                 currencyType, 
                 _configProviderService.GetConfig<CurrencyIconsConfig>(), 
                 view);
+        }
+
+        public WalletPresenter CreateWalletPresenter(IconTextListView view)
+        {
+            return new WalletPresenter(_walletService, this, _viewsFactory, view);
         }
     }
 }

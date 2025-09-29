@@ -21,11 +21,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private WalletService _walletService;
         private PlayerDataProvider _playerDataProvider;
         private ProjectPresentersFactory _projectPresentersFactory;
-        private ViewsFactory _viewsFactory;
-
-        [SerializeField] private Transform _viewsParent;
-        private IconTextView _currencyView;
-        private CurrencyPresenter _currencyPresenter;
 
         [Inject]
         public void Construct(
@@ -34,8 +29,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             SceneLoadingData sceneLoadingData,
             WalletService walletService,
             PlayerDataProvider playerDataProvider,
-            ProjectPresentersFactory projectPresentersFactory,
-            ViewsFactory viewsFactory)
+            ProjectPresentersFactory projectPresentersFactory)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
@@ -43,7 +37,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             _walletService = walletService;
             _playerDataProvider = playerDataProvider;
             _projectPresentersFactory = projectPresentersFactory;
-            _viewsFactory = viewsFactory;
         }
 
         public override IEnumerator Initialize()
@@ -88,36 +81,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                _currencyPresenter?.Disable();
-
-                if(_currencyView != null)
-                    _viewsFactory.Release(_currencyView);
-
-                _currencyView = _viewsFactory.Create<IconTextView>(ViewIDs.CurrencyView, _viewsParent);
-
-                _currencyPresenter = _projectPresentersFactory.CreateCurrencyPresenter(
-                    _currencyView, 
-                    _walletService.GetCurrency(CurrencyTypes.Gold),
-                    CurrencyTypes.Gold);
-
-                _currencyPresenter.Enable();
             }
 
             if (Input.GetKeyDown(KeyCode.G))
             {
-                _currencyPresenter?.Disable();
-
-                if (_currencyView != null)
-                    _viewsFactory.Release(_currencyView);
-
-                _currencyView = _viewsFactory.Create<IconTextView>(ViewIDs.CurrencyView, _viewsParent);
-
-                _currencyPresenter = _projectPresentersFactory.CreateCurrencyPresenter(
-                    _currencyView,
-                    _walletService.GetCurrency(CurrencyTypes.Diamond),
-                    CurrencyTypes.Diamond);
-
-                _currencyPresenter.Enable();
             }
         }
     }
