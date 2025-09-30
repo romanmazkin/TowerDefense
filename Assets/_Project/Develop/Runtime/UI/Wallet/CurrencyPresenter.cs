@@ -1,12 +1,13 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Wallet
 {
-    public class CurrencyPresenter
+    public class CurrencyPresenter : IPresenter
     {
         private readonly IReadOnlyVariable<int> _currency;
         private readonly CurrencyTypes _currencyType;
@@ -30,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
 
         public IconTextView View => _view;
 
-        public void Enable()
+        public void Initialize()
         {
             UpdateValue(_currency.Value);
             _view.SetIcon(_currencyIconsConfig.GetSpriteFor(_currencyType));
@@ -38,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
             _disposable = _currency.Subscribe(OnCurrenceChanged);
         }
 
-        public void Disable()
+        public void Dispose()
         {
             _disposable.Dispose();
         }

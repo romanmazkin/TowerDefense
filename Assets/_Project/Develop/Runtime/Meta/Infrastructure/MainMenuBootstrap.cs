@@ -17,26 +17,20 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     {
         private SceneSwitcherService _sceneSwitcherService;
         private ICoroutinesPerformer _coroutinesPerformer;
-        private SceneLoadingData _sceneLoadingData;
         private WalletService _walletService;
         private PlayerDataProvider _playerDataProvider;
-        private ProjectPresentersFactory _projectPresentersFactory;
 
         [Inject]
         public void Construct(
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
-            SceneLoadingData sceneLoadingData,
             WalletService walletService,
-            PlayerDataProvider playerDataProvider,
-            ProjectPresentersFactory projectPresentersFactory)
+            PlayerDataProvider playerDataProvider)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
-            _sceneLoadingData = sceneLoadingData;
             _walletService = walletService;
             _playerDataProvider = playerDataProvider;
-            _projectPresentersFactory = projectPresentersFactory;
         }
 
         public override IEnumerator Initialize()
