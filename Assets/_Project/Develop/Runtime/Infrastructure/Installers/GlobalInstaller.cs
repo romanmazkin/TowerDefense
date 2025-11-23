@@ -56,7 +56,7 @@ public class GlobalInstaller : MonoInstaller
         Container.Bind<PlayerDataProvider>().AsSingle();
 
         Container.Bind<ProjectPresentersFactory>().AsSingle();
-        Container.Bind<ViewsFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ViewsFactory>().AsSingle();
     }
 
     private void BindLoader()

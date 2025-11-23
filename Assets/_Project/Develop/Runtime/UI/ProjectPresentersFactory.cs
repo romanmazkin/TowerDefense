@@ -15,16 +15,26 @@ namespace Assets._Project.Develop.Runtime.UI
         private WalletService _walletService;
         private ViewsFactory _viewsFactory;
 
-        [Inject]
-        private void Construct(
-            ConfigsProviderService configsProviderService,
-            WalletService walletService,
+        public ProjectPresentersFactory(
+            ConfigsProviderService configProviderService, 
+            WalletService walletService, 
             ViewsFactory viewsFactory)
         {
-            _configProviderService = configsProviderService;
+            _configProviderService = configProviderService;
             _walletService = walletService;
             _viewsFactory = viewsFactory;
         }
+
+        //[Inject]
+        //private void Construct(
+        //    ConfigsProviderService configsProviderService,
+        //    WalletService walletService,
+        //    ViewsFactory viewsFactory)
+        //{
+        //    _configProviderService = configsProviderService;
+        //    _walletService = walletService;
+        //    _viewsFactory = viewsFactory;
+        //}
 
         public CurrencyPresenter CreateCurrencyPresenter(
             IconTextView view,

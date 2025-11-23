@@ -1,7 +1,9 @@
 ﻿using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
+using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.UI.Wallet
 {
@@ -47,7 +49,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
 
         public void Dispose()
         {
-            foreach(CurrencyPresenter currencyPresenter in _currencyPresenters)
+            foreach (CurrencyPresenter currencyPresenter in _currencyPresenters)
             {
                 _view.Remove(currencyPresenter.View);
                 _viewsFactory.Release(currencyPresenter.View);
