@@ -21,6 +21,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
                 .FromMethod(CreateMainMenuScreenPresenter)
                 .AsSingle()
                 .NonLazy();
+
+            Container.BindInterfacesAndSelfTo<MainMenuPopupService>().AsSingle();
         }
 
         private MainMenuScreenPresenter CreateMainMenuScreenPresenter(InjectContext context)

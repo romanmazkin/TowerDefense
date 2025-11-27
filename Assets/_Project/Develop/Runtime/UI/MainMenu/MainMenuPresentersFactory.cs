@@ -3,34 +3,28 @@ using Zenject;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
-    public class MainMenuPresentersFactory : IInitializable
+    public class MainMenuPresentersFactory
     {
         private ProjectPresentersFactory _presentersFactory;
+        private MainMenuPopupService _popupService;
 
-        public MainMenuPresentersFactory(ProjectPresentersFactory presentersFactory)
+        public MainMenuPresentersFactory(
+            ProjectPresentersFactory presentersFactory
+            , MainMenuPopupService popupService)
         {
             _presentersFactory = presentersFactory;
+            _popupService = popupService;
         }
-
-        //[Inject]
-        //private void Construct(ProjectPresentersFactory projectPresentersFactory)
-        //{
-        //    _presentersFactory = projectPresentersFactory;
-        //}
 
         public MainMenuScreenPresenter CreateMainMenuScreen(MainMenuScreenView view)
         {
             Debug.Log("Create view");
             return new MainMenuScreenPresenter(
                 view,
-                _presentersFactory);
+                _presentersFactory,
+                _popupService);
 
 
-        }
-
-        public void Initialize()
-        {
-            Debug.Log("YAY");
         }
     }
 }
