@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
 {
@@ -9,7 +10,10 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         public event Action CloseRequest;
 
         [SerializeField] private CanvasGroup _mainGroup;
+        [SerializeField] private Image _anticlicker;
         [SerializeField] private Transform _body;
+
+        private Tween _currentAnimation;
 
         private void Awake()
         {
@@ -20,20 +24,32 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
         public void Show()
         {
+            KillCurrentAnimation();
+
             OnPreShow();
 
             _mainGroup.alpha = 1;
 
-            _body
-                .DOScale(1, 0.5f)
-                .From(0)
-                .SetEase(Ease.OutBack);
+            Sequence animation = DOTween.Sequence();
+
+            animation
+                .Append(_anticlicker
+                    .DOFade(0.75f, 0.2f)
+                    .From(0))
+                .Join(_body
+                    .DOScale(1, 0.5f)
+                    .From(0)
+                    .SetEase(Ease.OutBack));
+
+            _currentAnimation = animation;
 
             OnPostShow();
         }
 
         public void Hide()
         {
+            KillCurrentAnimation();
+
             OnPreHide();
 
             _mainGroup.alpha = 0;
@@ -48,5 +64,13 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         protected virtual void OnPostHide() { }
 
         protected virtual void OnPreHide() { }
+
+        private void OnDestroy() => KillCurrentAnimation();
+
+        public void KillCurrentAnimation()
+        {
+            if (_currentAnimation != null)
+                _currentAnimation.Kill();
+        }
     }
 }
