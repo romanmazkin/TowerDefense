@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainGroup: {fileID: 1978225661560786547}
+  _body: {fileID: 6198024723804709155}
   _text: {fileID: 9082559888634537501}
 --- !u!1 &3581408817185018226
 GameObject:

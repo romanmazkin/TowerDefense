@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
 {
@@ -8,6 +9,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         public event Action CloseRequest;
 
         [SerializeField] private CanvasGroup _mainGroup;
+        [SerializeField] private Transform _body;
 
         private void Awake()
         {
@@ -21,6 +23,11 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             OnPreShow();
 
             _mainGroup.alpha = 1;
+
+            _body
+                .DOScale(1, 0.5f)
+                .From(0)
+                .SetEase(Ease.OutBack);
 
             OnPostShow();
         }
