@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
@@ -57,6 +58,7 @@ public class GlobalInstaller : MonoInstaller
 
         Container.Bind<ProjectPresentersFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<ViewsFactory>().AsSingle();
+        Container.Bind<LevelsProgressionService>().AsSingle().NonLazy();
     }
 
     private void BindLoader()
