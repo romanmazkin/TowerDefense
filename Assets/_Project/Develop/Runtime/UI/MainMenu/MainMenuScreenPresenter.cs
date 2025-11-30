@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
