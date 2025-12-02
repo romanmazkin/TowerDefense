@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964509173209039761}
   - component: {fileID: 1978225661560786547}
+  - component: {fileID: 6167645295598462881}
   m_Layer: 5
   m_Name: LevelsMenuPopup
   m_TagString: Untagged
@@ -349,6 +350,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6167645295598462881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325027596472081697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14fb85a7d9e655a49a498414b4e8f32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainGroup: {fileID: 1978225661560786547}
+  _anticlicker: {fileID: 3125782116569585819}
+  _body: {fileID: 6198024723804709155}
+  _title: {fileID: 9082559888634537501}
+  _levelTilesListView: {fileID: 8860245084468289481}
 --- !u!1 &3581408817185018226
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +562,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6167645295598462881}
         m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
           Assembly-CSharp
         m_MethodName: OnCloseButtonClicked
@@ -567,6 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589231938254400378}
   - component: {fileID: 3509925006950764536}
+  - component: {fileID: 8860245084468289481}
   - component: {fileID: 7878782154196461643}
   - component: {fileID: 3831397086564999755}
   m_Layer: 5
@@ -604,6 +623,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5885955186384792198}
   m_CullTransparentMesh: 1
+--- !u!114 &8860245084468289481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5885955186384792198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aade5ce5beb81345b1a4d86fcc6665b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 6082292182621065949}
 --- !u!114 &7878782154196461643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5192011870337984454, guid: 1cc42520c12f9b3489042dca56a7a51f,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6167645295598462881}
+    - target: {fileID: 5192011870337984454, guid: 1cc42520c12f9b3489042dca56a7a51f,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -864,6 +901,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc42520c12f9b3489042dca56a7a51f, type: 3}
+--- !u!114 &3125782116569585819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3383101092227602514, guid: 1cc42520c12f9b3489042dca56a7a51f,
+    type: 3}
+  m_PrefabInstance: {fileID: 401439128917393609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8639475061459501405 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8248243802858553748, guid: 1cc42520c12f9b3489042dca56a7a51f,
