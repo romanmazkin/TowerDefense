@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
 {
-    internal interface IPresenter : IInitializable, IDisposable
+    public interface IPresenter : IInitializable, IDisposable
     {
     }
 }

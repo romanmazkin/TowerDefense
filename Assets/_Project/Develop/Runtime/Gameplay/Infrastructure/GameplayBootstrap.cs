@@ -12,19 +12,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         SceneSwitcherService _sceneSwitcherService;
         ICoroutinesPerformer _coroutinesPerformer;
-        SceneLoadingData _sceneLoadingData;
         WalletService _walletService;
 
         [Inject]
         public void Construct(
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
-            SceneLoadingData sceneLoadingData,
             WalletService walletService)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
-            _sceneLoadingData = sceneLoadingData;
             _walletService = walletService;
         }
 
@@ -32,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Init gameplay");
 
-            Debug.Log($"Loaded level {_sceneLoadingData.Level}");
+            Debug.Log($"Loaded level");
 
             yield break;
         }

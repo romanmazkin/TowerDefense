@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
-    public class LevelTilePresenter : IPresenter
+    public class LevelTilePresenter : ISubscribedPresenter
     {
         private readonly LevelsProgressionService _levelsService;
         private readonly SceneSwitcherService _sceneSwitcherService;
@@ -30,6 +30,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             _view = view;
         }
 
+        public LevelTileView View => _view;
+
         public void Initialize()
         {
             _view.SetLevel(_levelNumber.ToString());
@@ -50,6 +52,16 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         }
 
         public void Dispose()
+        {
+            _view.Clicked -= OnViewClicked;
+        }
+
+        public void Subscribe()
+        {
+            _view.Clicked += OnViewClicked;
+        }
+
+        public void Unsubscribe()
         {
             _view.Clicked -= OnViewClicked;
         }

@@ -71,5 +71,10 @@ namespace Assets._Project.Develop.Runtime.UI
         {
             return new LevelTilePresenter(_levelsService, _sceneSwitcherService, _performer, levelNumber, view);
         }
+
+        public LevelsMenuPopupPresenter CreateLevelsMenuPopupPresenter(LevelsMenuPopupView view)
+        {
+            return new LevelsMenuPopupPresenter(_performer, _configProviderService, this, _viewsFactory, view);
+        }
     }
 }

@@ -10,20 +10,20 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
     {
         [field: SerializeField] public IconTextListView WalletView {  get; private set; }
 
-        public event Action OpenTestPopupButtonClicked;
+        public event Action OpenLevelsMenuButtonClicked;
 
-        [SerializeField] private Button _openTestPopupButton;
+        [SerializeField] private Button _openLevelsMenuButton;
 
         private void OnEnable()
         {
-            _openTestPopupButton.onClick.AddListener(OnOpenTestPopupButtonClicked);
+            _openLevelsMenuButton.onClick.AddListener(OnOpenLevelsMenuButtonClicked);
         }
 
         private void OnDisable()
         {
-            _openTestPopupButton.onClick.RemoveListener(OnOpenTestPopupButtonClicked);
+            _openLevelsMenuButton.onClick.RemoveListener(OnOpenLevelsMenuButtonClicked);
         }
 
-        private void OnOpenTestPopupButtonClicked() => OpenTestPopupButtonClicked?.Invoke();
+        private void OnOpenLevelsMenuButtonClicked() => OpenLevelsMenuButtonClicked?.Invoke();
     }
 }

@@ -1,9 +1,5 @@
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.UI;
-using Assets._Project.Develop.Runtime.UI.CommonViews;
-using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
