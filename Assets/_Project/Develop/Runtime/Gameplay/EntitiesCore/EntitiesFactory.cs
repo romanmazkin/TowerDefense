@@ -14,12 +14,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
         public Entity CreateTestEntity()
         {
-            Entity entity = new Entity();
+            Entity entity = CreateEmpty();
 
-            entity.AddComponent(new MoveDirection() { Value = new ReactiveVariable<Vector3>(Vector3.forward) });
-            entity.AddComponent(new MoveSpeed() { Value = new ReactiveVariable<float>(10) });
+            entity
+                .AddComponent(new MoveDirection() { Value = new ReactiveVariable<Vector3>(Vector3.forward) })
+                .AddComponent(new MoveSpeed() { Value = new ReactiveVariable<float>(10) });
 
             return entity;
         }
+
+        private Entity CreateEmpty() => new Entity();
     }
 }

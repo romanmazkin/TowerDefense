@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
 {
@@ -6,7 +7,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
     {
         public override void InstallBindings()
         {
-
+            Container.Bind<EntitiesFactory>().AsSingle();
         }
     }
 }
