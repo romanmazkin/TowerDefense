@@ -80,7 +80,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             Debug.Log("Switch scene");
 
-            yield return _sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu);
+            yield return _sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new SceneLoadingData(1));
         }
     }
 }
