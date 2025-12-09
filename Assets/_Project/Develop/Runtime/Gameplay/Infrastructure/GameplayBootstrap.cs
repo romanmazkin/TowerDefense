@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Infrastructure;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
@@ -13,6 +14,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         SceneSwitcherService _sceneSwitcherService;
         ICoroutinesPerformer _coroutinesPerformer;
         WalletService _walletService;
+
+        [SerializeField] private TestGameplay _testGameplay;
 
         [Inject]
         public void Construct(
@@ -31,12 +34,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             Debug.Log($"Loaded level");
 
+            _testGameplay.Initialize();
+
             yield break;
         }
 
         public override void Run()
         {
             Debug.Log("Start gameplay scene");
+
+            _testGameplay.Run();
         }
 
         private void Update()
