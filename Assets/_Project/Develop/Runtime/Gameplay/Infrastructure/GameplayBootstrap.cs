@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Infrastructure;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -14,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         SceneSwitcherService _sceneSwitcherService;
         ICoroutinesPerformer _coroutinesPerformer;
         WalletService _walletService;
+        private EntitiesLifeContext _entitiesLifeContext;
 
         [SerializeField] private TestGameplay _testGameplay;
 
@@ -21,11 +23,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public void Construct(
             SceneSwitcherService sceneSwitcherService,
             ICoroutinesPerformer coroutinesPerformer,
-            WalletService walletService)
+            WalletService walletService,
+            EntitiesLifeContext entitiesLifeContext)
         {
             _sceneSwitcherService = sceneSwitcherService;
             _coroutinesPerformer = coroutinesPerformer;
             _walletService = walletService;
+            _entitiesLifeContext = entitiesLifeContext;
         }
 
         public override IEnumerator Initialize()
@@ -48,6 +52,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
+            _entitiesLifeContext?.Update(Time.deltaTime);
+
             if (Input.GetKeyDown(KeyCode.F))
                 _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu));
 

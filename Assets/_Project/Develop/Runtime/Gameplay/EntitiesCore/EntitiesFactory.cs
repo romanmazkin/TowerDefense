@@ -7,9 +7,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
     public class EntitiesFactory
     {
+        private EntitiesLifeContext _entitiesLifeContext;
+
         [Inject]
-        public void Construct()
+        public void Construct(EntitiesLifeContext entitiesLifeContext)
         {
+            _entitiesLifeContext = entitiesLifeContext;
         }
 
         public Entity CreateTestEntity()
@@ -21,6 +24,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddComponent(new MoveSpeed() { Value = new ReactiveVariable<float>(10) });
 
             entity.AddSystem(new MovementSystem());
+
+            _entitiesLifeContext.Add(entity);
 
             return entity;
         }

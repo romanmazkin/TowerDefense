@@ -8,6 +8,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.Bind<EntitiesFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EntitiesLifeContext>().AsSingle();
         }
     }
 }

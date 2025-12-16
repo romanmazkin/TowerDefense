@@ -42,7 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
         public void Dispose()
         {
-            foreach(Entity entity in _entities)
+            foreach (Entity entity in _entities)
                 entity.Dispose();
 
             _entities.Clear();
