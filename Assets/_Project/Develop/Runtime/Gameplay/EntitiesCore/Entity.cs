@@ -14,6 +14,33 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private readonly List<IUpdatdbleSystem> _updatables = new();
         private readonly List<IDisposableSystem> _disposables = new();
 
+        private bool _isInit;
+
+        public void Initialize()
+        {
+            foreach (IInitializableSystem initializable in _initializables)
+                initializable.OnInit(this);
+
+            _isInit = true;
+        }
+
+        public void OnUpdate(float deltaTime)
+        {
+            if (_isInit == false)
+                return;
+
+            foreach (IUpdatdbleSystem updatdble in _updatables)
+                updatdble.OnUpdate(deltaTime);
+        }
+
+        public void Dispose()
+        {
+            foreach (IDisposableSystem disposable in _disposables)
+                disposable.OnDispose();
+
+            _isInit = false;
+        }
+
         public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
         {
             _components.Add(typeof(TComponent), component);
@@ -53,7 +80,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _systems.Add(system);
 
             if(system is IInitializableSystem initializable)
+            {
                 _initializables.Add(initializable);
+
+                if(_isInit)
+                    initializable.OnInit(this);
+            }
 
             if(system is IUpdatdbleSystem updatdble)
                 _updatables.Add(updatdble);
