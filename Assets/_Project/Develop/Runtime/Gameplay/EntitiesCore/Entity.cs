@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using System;
 using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
@@ -6,6 +7,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
     public class Entity
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
+
+        private readonly List<IEntitySystem> _systems = new();
+
+        private readonly List<IInitializableSystem> _initializables = new();
+        private readonly List<IUpdatdbleSystem> _updatables = new();
+        private readonly List<IDisposableSystem> _disposables = new();
 
         public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
         {
@@ -36,6 +43,25 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 throw new ArgumentException($"Entity {typeof(TComponent)} not exist (custom)");
 
             return component; 
+        }
+
+        public Entity AddSystem(IEntitySystem system)
+        {
+            if (_systems.Contains(system))
+                throw new ArgumentException(system.GetType().ToString());
+
+            _systems.Add(system);
+
+            if(system is IInitializableSystem initializable)
+                _initializables.Add(initializable);
+
+            if(system is IUpdatdbleSystem updatdble)
+                _updatables.Add(updatdble);
+
+            if(system is IDisposableSystem disposable)
+                _disposables.Add(disposable);
+
+            return this;
         }
     }
 }

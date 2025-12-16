@@ -2,24 +2,24 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
     public class MovementSystem : IInitializableSystem, IUpdatdbleSystem
     {
-        private Entity _entity;
+        private ReactiveVariable<Vector3> _moveDirection;
+        private ReactiveVariable<float> _moveSpeed;
 
         public void OnInit(Entity entity)
         {
-            _entity = entity;
+            _moveDirection = entity.GetComponent<MoveDirection>().Value;
+            _moveSpeed = entity.GetComponent<MoveSpeed>().Value;
         }
 
         public void OnUpdate(float deltaTimeS)
         {
-           ReactiveVariable<Vector3> moveDirection = _entity.GetComponent<MoveDirection>().Value;
-           ReactiveVariable<float> moveSpeed = _entity.GetComponent<MoveSpeed>().Value;
-
-            Vector3 velocity = moveDirection.Value.normalized * moveSpeed.Value;
+            Vector3 velocity = _moveDirection.Value.normalized * _moveSpeed.Value;
 
             Debug.Log("Speed is " + velocity.ToString());
         }
