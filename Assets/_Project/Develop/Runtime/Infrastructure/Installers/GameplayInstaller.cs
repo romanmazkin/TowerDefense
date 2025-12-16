@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
@@ -9,6 +10,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
         {
             Container.Bind<EntitiesFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<EntitiesLifeContext>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
         }
     }
 }

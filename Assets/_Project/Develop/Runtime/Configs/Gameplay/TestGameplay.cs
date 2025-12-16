@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public void Run()
         {
-            Entity entity = _entitiesFactory.CreateTestEntity();
+            Entity entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
 
             Debug.Log("Move direction " + entity.GetComponent<MoveDirection>().Value.Value.ToString());
             Debug.Log("Move speed " + entity.GetComponent<MoveSpeed>().Value.Value.ToString());
