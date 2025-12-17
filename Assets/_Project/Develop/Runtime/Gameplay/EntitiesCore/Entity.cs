@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public class Entity
+    public partial class Entity : IDisposable
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -69,7 +69,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             if (TryGetComponent(out TComponent component) == false)
                 throw new ArgumentException($"Entity {typeof(TComponent)} not exist (custom)");
 
-            return component; 
+            return component;
         }
 
         public Entity AddSystem(IEntitySystem system)
@@ -79,18 +79,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             _systems.Add(system);
 
-            if(system is IInitializableSystem initializable)
+            if (system is IInitializableSystem initializable)
             {
                 _initializables.Add(initializable);
 
-                if(_isInit)
+                if (_isInit)
                     initializable.OnInit(this);
             }
 
-            if(system is IUpdatdbleSystem updatdble)
+            if (system is IUpdatdbleSystem updatdble)
                 _updatables.Add(updatdble);
 
-            if(system is IDisposableSystem disposable)
+            if (system is IDisposableSystem disposable)
                 _disposables.Add(disposable);
 
             return this;
