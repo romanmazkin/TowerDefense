@@ -10,6 +10,8 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         private bool _isRunning;
         private EntitiesFactory _entitiesFactory;
 
+        private Entity _entity;
+
         [Inject]
         public void Construct(EntitiesFactory entitiesFactory)
         {
@@ -22,10 +24,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public void Run()
         {
-            Entity entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
-
-            Debug.Log("Move direction " + entity.GetComponent<MoveDirection>().Value.Value.ToString());
-            Debug.Log("Move speed " + entity.GetComponent<MoveSpeed>().Value.Value.ToString());
+            _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
 
             _isRunning = true;
         }
@@ -34,6 +33,10 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         {
             if(_isRunning == false)
                 return;
+
+            Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+
+            _entity.GetComponent<MoveDirection>().Value.Value = input;
         }
     }
 }
