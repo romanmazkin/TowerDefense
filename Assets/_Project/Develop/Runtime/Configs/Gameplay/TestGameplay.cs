@@ -24,7 +24,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
+            _entity = _entitiesFactory.CreateSkeleton(Vector3.zero);
 
             _isRunning = true;
         }
