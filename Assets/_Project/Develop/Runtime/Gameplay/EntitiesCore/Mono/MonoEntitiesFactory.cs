@@ -10,17 +10,22 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
     public class MonoEntitiesFactory : IInitializable, IDisposable
     {
         private ResourcesAssetsLoader _resources;
+
         private EntitiesLifeContext _lifeContext;
+
+        private CollidersRegisteryService _collidersRegisteryService;
 
         private readonly Dictionary<Entity, MonoEntity> _entityToMono = new();
 
         [Inject]
         private void Construct(
             ResourcesAssetsLoader resourcesAssetsLoader,
-            EntitiesLifeContext entitiesLifeContext)
+            EntitiesLifeContext entitiesLifeContext,
+            CollidersRegisteryService collidersRegisteryService)
         {
             _resources = resourcesAssetsLoader;
             _lifeContext = entitiesLifeContext;
+            _collidersRegisteryService = collidersRegisteryService;
         }
 
         public MonoEntity Create(Entity entity, Vector3 position, string path)
@@ -29,7 +34,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 
             MonoEntity viewInstance = Object.Instantiate(prefab, position, Quaternion.identity, null);
 
-            viewInstance.Setup(entity);
+            viewInstance.Initialize(_collidersRegisteryService);
+
+            viewInstance.Link(entity);
 
             _entityToMono.Add(entity, viewInstance);
 
@@ -63,7 +70,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
         {
             MonoEntity monoEntity = _entityToMono[entity];
             monoEntity.Cleanup(entity);
-            Object.Destroy(monoEntity.gameObject);
+            //Object.Destroy(monoEntity.gameObject);
         }
     }
 }
