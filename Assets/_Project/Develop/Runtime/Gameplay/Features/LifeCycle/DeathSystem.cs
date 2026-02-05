@@ -2,11 +2,10 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
-using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
-    public class DeathSystem : IInitializableSystem, IUpdatdbleSystem
+    public class DeathSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<bool> _isDead;
 
@@ -20,7 +19,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 
         public void OnUpdate(float deltaTimeS)
         {
-            if(_isDead.Value == true)
+            if(_isDead.Value)
                 return;
 
             if(_mustDie.Evaluate())

@@ -5,7 +5,7 @@ using System;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
-    public class DeathProcessTimerSystem : IInitializableSystem, IDisposableSystem, IUpdatdbleSystem
+    public class DeathProcessTimerSystem : IInitializableSystem, IDisposableSystem, IUpdatableSystem
     {
         private ReactiveVariable<bool> _isDead;
         private ReactiveVariable<bool> _inDeathProcess;
@@ -24,11 +24,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
             _isDeadChangedDisposable = _isDead.Subscribe(OnIsDeathChanged);
         }
 
-        public void OnDispose()
-        {
-            _isDeadChangedDisposable.Dispose();
-        }
-
         public void OnUpdate(float deltaTimeS)
         {
             if (_inDeathProcess.Value == false)
@@ -38,6 +33,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 
             if(CooldownIsOver())
                 _inDeathProcess.Value = false;
+        }
+
+        public void OnDispose()
+        {
+            _isDeadChangedDisposable.Dispose();
         }
 
         private bool CooldownIsOver() => _currentTime.Value <= 0;

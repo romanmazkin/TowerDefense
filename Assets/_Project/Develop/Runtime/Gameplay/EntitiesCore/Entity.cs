@@ -11,7 +11,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private readonly List<IEntitySystem> _systems = new();
 
         private readonly List<IInitializableSystem> _initializables = new();
-        private readonly List<IUpdatdbleSystem> _updatables = new();
+        private readonly List<IUpdatableSystem> _updatables = new();
         private readonly List<IDisposableSystem> _disposables = new();
 
         private bool _isInit;
@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             if (_isInit == false)
                 return;
 
-            foreach (IUpdatdbleSystem updatdble in _updatables)
+            foreach (IUpdatableSystem updatdble in _updatables)
                 updatdble.OnUpdate(deltaTime);
         }
 
@@ -87,7 +87,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                     initializable.OnInit(this);
             }
 
-            if (system is IUpdatdbleSystem updatdble)
+            if (system is IUpdatableSystem updatdble)
                 _updatables.Add(updatdble);
 
             if (system is IDisposableSystem disposable)

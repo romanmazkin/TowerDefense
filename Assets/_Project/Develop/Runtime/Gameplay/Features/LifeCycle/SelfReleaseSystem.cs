@@ -1,10 +1,11 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Utilities.Conditions;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
-    public class SelfReleaseSystem : IInitializableSystem, IUpdatdbleSystem
+    public class SelfReleaseSystem : IInitializableSystem, IUpdatableSystem
     {
         private readonly EntitiesLifeContext _lifeContext;
 

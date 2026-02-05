@@ -10,8 +10,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
         {
             Container.Bind<EntitiesFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<EntitiesLifeContext>().AsSingle();
-            Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
             Container.Bind<CollidersRegisteryService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
         }
     }
 }

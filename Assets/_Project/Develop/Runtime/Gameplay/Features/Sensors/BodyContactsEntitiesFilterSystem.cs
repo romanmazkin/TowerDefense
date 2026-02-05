@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 {
-    public class BodyContactsEntitiesFilterSystem : IInitializableSystem, IUpdatdbleSystem
+    public class BodyContactsEntitiesFilterSystem : IInitializableSystem, IUpdatableSystem
     {
         private Buffer<Collider> _contacts;
         private Buffer<Entity> _contactsEntities;
@@ -40,7 +40,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
                 }
             }
 
-            Debug.Log("Contscts: " + _contactsEntities.Count);
+            Debug.Log("Contacts: " + _contactsEntities.Count);
         }
     }
 }

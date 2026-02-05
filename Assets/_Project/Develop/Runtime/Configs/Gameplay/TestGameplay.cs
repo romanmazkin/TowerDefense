@@ -36,9 +36,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
                 return;
 
             if (Input.GetKeyDown(KeyCode.Space))
-            {
                 _entity.TakeDamageRequest.Invoke(50);
-            }
 
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 

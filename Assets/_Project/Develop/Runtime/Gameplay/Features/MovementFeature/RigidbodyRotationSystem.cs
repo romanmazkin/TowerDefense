@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class RigidbodyRotationSystem : IInitializableSystem, IUpdatdbleSystem
+    public class RigidbodyRotationSystem : IInitializableSystem, IUpdatableSystem
     {
         private Rigidbody _rigidbody;
 

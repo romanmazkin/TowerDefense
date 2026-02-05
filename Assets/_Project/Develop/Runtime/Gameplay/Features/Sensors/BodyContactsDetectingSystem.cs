@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 {
-    public class BodyContactsDetectingSystem : IInitializableSystem, IUpdatdbleSystem
+    public class BodyContactsDetectingSystem : IInitializableSystem, IUpdatableSystem
     {
         private Buffer<Collider> _contacts;
         private LayerMask _mask;
