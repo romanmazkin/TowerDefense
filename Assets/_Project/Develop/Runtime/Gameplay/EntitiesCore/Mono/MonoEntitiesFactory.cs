@@ -70,7 +70,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
         {
             MonoEntity monoEntity = _entityToMono[entity];
             monoEntity.Cleanup(entity);
-            //Object.Destroy(monoEntity.gameObject);
+            Object.Destroy(monoEntity.gameObject);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             {
                 _entities.Remove(entity);
                 entity.Dispose();
-                Released.Invoke(entity);
+                Released?.Invoke(entity);
             }
 
             _releaseRequests.Clear();
