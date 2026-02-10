@@ -24,7 +24,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateSkeleton(Vector3.zero);
+            _entity = _entitiesFactory.CreateHero(Vector3.zero);
             _entitiesFactory.CreateSkeleton(Vector3.zero + Vector3.forward * 5);
 
             _isRunning = true;
