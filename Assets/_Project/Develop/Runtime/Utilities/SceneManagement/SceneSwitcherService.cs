@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
             if (sceneBootstrap == null)
                 throw new NullReferenceException(nameof(SceneBootstrap) + " not found");
 
-            yield return sceneBootstrap.Initialize();
+            yield return sceneBootstrap.Initialize(/*sceneLoadingData*/);
 
             _loadingScreen.Hide();
 

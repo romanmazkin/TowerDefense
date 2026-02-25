@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
@@ -12,6 +13,8 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<EntitiesLifeContext>().AsSingle();
             Container.Bind<CollidersRegisteryService>().AsSingle();
             Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
+            Container.Bind<BrainsFactory>().AsSingle();
+            Container.Bind<AIBrainsContext>().AsSingle();
         }
     }
 }

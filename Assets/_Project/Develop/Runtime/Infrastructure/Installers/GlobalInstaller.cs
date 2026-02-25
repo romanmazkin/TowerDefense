@@ -14,6 +14,7 @@ using Assets._Project.Develop.Runtime.Utilities.DataManagement.Serializers;
 using Assets._Project.Develop.Runtime.Utilities.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
+using Assets._Project.Develop.Runtime.Utilities.Timer;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,15 +50,17 @@ public class GlobalInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
+        Container.Bind<PlayerDataProvider>().AsSingle();
+
+        Container.Bind<ProjectPresentersFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ViewsFactory>().AsSingle();
+        Container.Bind<TimerServiceFactory>().AsSingle();
+
         Container.Bind<ISaveLoadService>()
             .To<SaveLoadService>()
             .FromMethod(CreateSaveLoadService)
             .AsSingle();
 
-        Container.Bind<PlayerDataProvider>().AsSingle();
-
-        Container.Bind<ProjectPresentersFactory>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ViewsFactory>().AsSingle();
         Container.Bind<LevelsProgressionService>().AsSingle().NonLazy();
     }
 

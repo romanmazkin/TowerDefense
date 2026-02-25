@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using UnityEngine;
 using Zenject;
@@ -9,13 +10,18 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
     {
         private bool _isRunning;
         private EntitiesFactory _entitiesFactory;
+        private BrainsFactory _brainsFactory;
 
         private Entity _entity;
+        private Entity _skeleton;
 
         [Inject]
-        public void Construct(EntitiesFactory entitiesFactory)
+        public void Construct(
+            EntitiesFactory entitiesFactory,
+            BrainsFactory brainsFactory)
         {
             _entitiesFactory = entitiesFactory;
+            _brainsFactory = brainsFactory;
         }
 
         public void Initialize()
@@ -25,7 +31,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         public void Run()
         {
             _entity = _entitiesFactory.CreateHero(Vector3.zero);
-            _entitiesFactory.CreateSkeleton(Vector3.zero + Vector3.forward * 5);
+            _skeleton = _entitiesFactory.CreateSkeleton(Vector3.zero + Vector3.forward * 5);
 
             _isRunning = true;
         }
@@ -40,6 +46,9 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
             if (Input.GetKeyDown(KeyCode.R))
                 _entity.StartAttackRequest.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.I))
+                _brainsFactory.CreateSkeletonBrain(_skeleton);
 
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
