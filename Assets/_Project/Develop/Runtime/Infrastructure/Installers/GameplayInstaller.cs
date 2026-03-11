@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
@@ -15,6 +16,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
             Container.Bind<BrainsFactory>().AsSingle();
             Container.Bind<AIBrainsContext>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
         }
     }
 }

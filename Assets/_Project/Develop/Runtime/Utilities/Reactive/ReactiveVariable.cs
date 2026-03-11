@@ -5,17 +5,24 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Utilities.Reactive
 {
-    public class ReactiveVariable<T> : IReadOnlyVariable<T> where T : IEquatable<T>
+    public class ReactiveVariable<T> : IReadOnlyVariable<T> 
     {
         private readonly List<Subscriber<T,T>> _subscribers = new();
         private readonly List<Subscriber<T,T>> _toAdd = new();
         private readonly List<Subscriber<T,T>> _toRemove = new();
 
         private T _value;
+        private IEqualityComparer<T> _comparer;
 
-        public ReactiveVariable() => _value = default;
+        public ReactiveVariable() : this(default) { }
 
-        public ReactiveVariable(T value) => _value = value;
+        public ReactiveVariable(T value) : this(value, EqualityComparer<T>.Default) { }
+
+        public ReactiveVariable(T value, IEqualityComparer<T> comparer)
+        {
+            _value = value;
+            _comparer = comparer;
+        }
 
         public T Value
         {
@@ -26,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.Reactive
 
                 _value = value;
 
-                if (_value.Equals(oldValue) == false)
+                if (_comparer.Equals(oldValue, value) == false)
                     Invoke(oldValue, value);
             }
         }
