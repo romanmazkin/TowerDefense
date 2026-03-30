@@ -2,6 +2,7 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,8 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         private bool _isRunning;
         private EntitiesFactory _entitiesFactory;
         private BrainsFactory _brainsFactory;
+        private MainHeroFactory _mainHeroFactory;
+        private EnemiesFactory _enemiesFactory;
 
         [SerializeField] private HeroConfig _heroConfig;
         [SerializeField] private SkeletonConfig _skeletonConfig;
@@ -24,10 +27,14 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         [Inject]
         public void Construct(
             EntitiesFactory entitiesFactory,
-            BrainsFactory brainsFactory)
+            BrainsFactory brainsFactory,
+            MainHeroFactory mainHeroFactory,
+            EnemiesFactory enemiesFactory)
         {
             _entitiesFactory = entitiesFactory;
             _brainsFactory = brainsFactory;
+            _mainHeroFactory = mainHeroFactory;
+            _enemiesFactory = enemiesFactory;
         }
 
         public void Initialize()
@@ -36,15 +43,9 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateHero(Vector3.zero, _heroConfig);
-            _entity.AddCurrentTarget();
-            _brainsFactory.CreateMainHeroBrain(_entity, new NearestDamageableTargetSelector(_entity));
-
-            _skeleton = _entitiesFactory.CreateSkeleton(Vector3.zero + Vector3.forward * 5, _skeletonConfig);
-            _anotherSkeleton = _entitiesFactory.CreateSkeleton(Vector3.zero - Vector3.forward * 5, _skeletonConfig);
-
-            _brainsFactory.CreateSkeletonBrain(_skeleton);
-            _brainsFactory.CreateSkeletonBrain(_anotherSkeleton);
+            _entity = _mainHeroFactory.Create(Vector3.zero);
+            _skeleton = _enemiesFactory.Create(Vector3.zero + Vector3.forward * 5, _skeletonConfig);
+            _anotherSkeleton = _enemiesFactory.Create(Vector3.zero - Vector3.forward * 5, _skeletonConfig);
 
             _isRunning = true;
         }
@@ -53,15 +54,6 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         {
             if(_isRunning == false)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                _entity.TakeDamageRequest.Invoke(50);
-
-            if (Input.GetKeyDown(KeyCode.R))
-                _entity.StartAttackRequest.Invoke();
-
-            //if (Input.GetKeyDown(KeyCode.I))
-            //    _brainsFactory.CreateSkeletonBrain(_skeleton);
         }
     }
 }
