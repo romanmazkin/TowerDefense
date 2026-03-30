@@ -2,7 +2,9 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 using Zenject;
 
@@ -33,6 +35,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
             HeroConfig config = _configsProviderService.GetConfig<HeroConfig>();
 
             Entity entity = _entitiesFactory.CreateHero(position, config);
+
+            entity
+                .AddIsMainHero()
+                .AddTeam(new ReactiveVariable<Teams>(Teams.MainHero));
 
             entity.AddCurrentTarget();
             _brainsFactory.CreateMainHeroBrain(entity, new NearestDamageableTargetSelector(entity));

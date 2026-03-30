@@ -16,10 +16,10 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
             Container.Bind<CollidersRegisteryService>().AsSingle();
             Container.BindInterfacesAndSelfTo<MonoEntitiesFactory>().AsSingle().NonLazy();
             Container.Bind<BrainsFactory>().AsSingle();
-            Container.Bind<AIBrainsContext>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
             Container.Bind<MainHeroFactory>().AsSingle();
             Container.Bind<EnemiesFactory>().AsSingle();
+            Container.Bind<AIBrainsContext>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
         }
     }
 }

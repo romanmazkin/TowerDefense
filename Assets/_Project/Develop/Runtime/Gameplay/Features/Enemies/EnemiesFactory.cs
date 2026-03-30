@@ -2,7 +2,9 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using UnityEngine;
 using Zenject;
@@ -41,6 +43,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
                 default:
                     throw new ArgumentException($"Not support {config.GetType()} type config");
             }
+
+            entity.AddTeam(new ReactiveVariable<Teams>(Teams.Enemies));
 
             _entitiesLifeContext.Add(entity);
 
