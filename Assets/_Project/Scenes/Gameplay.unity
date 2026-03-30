@@ -513,6 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a917cfcd282d8884e9e0bf1929a95cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _heroConfig: {fileID: 11400000, guid: 6c9564c434254594db3074811d6e0b91, type: 2}
+  _skeletonConfig: {fileID: 11400000, guid: 8cb5fe3fd6760f9408b40679524df9b9, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

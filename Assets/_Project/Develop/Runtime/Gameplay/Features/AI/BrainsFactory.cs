@@ -35,25 +35,25 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
         {
             AIStateMachine combatState = CreateAutoAttackStateMachine(entity);
 
-            PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
+            //PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
 
             ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
 
-            ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => currentTarget.Value != null))
-                .Add(new FuncCondition(() => _inputService.Direction == Vector3.zero));
+            //ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
+            //    .Add(new FuncCondition(() => currentTarget.Value != null))
+            //    .Add(new FuncCondition(() => _inputService.Direction == Vector3.zero));
 
-            ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
-                .Add(new FuncCondition(() => currentTarget.Value == null))
-                .Add(new FuncCondition(() => _inputService.Direction != Vector3.zero));
+            //ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
+            //    .Add(new FuncCondition(() => currentTarget.Value == null))
+            //    .Add(new FuncCondition(() => _inputService.Direction != Vector3.zero));
 
             AIStateMachine behaviour = new AIStateMachine();
 
-            behaviour.AddState(movementState);
+            //behaviour.AddState(movementState);
             behaviour.AddState(combatState);
 
-            behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
-            behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
+            //behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
+            //behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
 
             FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
             AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
@@ -129,7 +129,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
                     float angleToTarget = Quaternion.Angle(
                         transform.rotation, Quaternion.LookRotation(
                             target.Transform.position - transform.position));
-                    return angleToTarget < 1f;
+                    return angleToTarget < 3f;
                 }));
 
             ReactiveVariable<bool> inAttackProcess = entity.InAttackProcess;
