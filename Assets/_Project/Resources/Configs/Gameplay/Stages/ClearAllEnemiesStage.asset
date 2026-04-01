@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feec30bad4976349bcccf1c22cff213, type: 3}
+  m_Name: ClearAllEnemiesStage
+  m_EditorClassIdentifier: 
+  _enemyItems:
+  - <SpawnPosition>k__BackingField: {x: -3, y: 0, z: 5}
+    <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 8cb5fe3fd6760f9408b40679524df9b9,
+      type: 2}
+  - <SpawnPosition>k__BackingField: {x: 3, y: 0, z: 5}
+    <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 8cb5fe3fd6760f9408b40679524df9b9,
+      type: 2}
