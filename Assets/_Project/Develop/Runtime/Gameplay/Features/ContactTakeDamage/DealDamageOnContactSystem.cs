@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilities;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 {
     public class DealDamageOnContactSystem : IInitializableSystem, IUpdatableSystem
     {
+        private Entity _entity;
         private Buffer<Entity> _contacts;
         private ReactiveVariable<float> _damage;
 
@@ -16,6 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 
         public void OnInit(Entity entity)
         {
+            _entity = entity;
             _contacts = entity.ContactEntitiesBuffer;
             _damage = entity.BodyContactDamage;
 
@@ -32,14 +35,29 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
                 {
                     _processedEntities.Add(contactEntity);
 
-                    if (contactEntity.HasComponent<TakeDamageRequest>())
-                        contactEntity.TakeDamageRequest.Invoke(_damage.Value);
+                    TryTakeDamageFrom(_entity, contactEntity, _damage.Value);
                 }
             }
 
             for (int i = _processedEntities.Count - 1; i >= 0; i--)
                 if (ContainInContacts(_processedEntities[i]) == false)
                     _processedEntities.RemoveAt(i);
+        }
+
+        public bool TryTakeDamageFrom(Entity source, Entity damageable, float damage)
+        {
+            if (damageable.TryGetTakeDamageRequest(out ReactiveEvent<float> takeDamageRequest) == false)
+                return false;
+
+            if(source.TryGetTeam(out ReactiveVariable<Teams> sourceTeam)
+                && damageable.TryGetTeam(out ReactiveVariable<Teams> damageableTeam))
+            {
+                if(sourceTeam.Value == damageableTeam.Value)
+                    return false;
+            }
+
+            takeDamageRequest.Invoke(damage);
+            return true;
         }
 
         public bool ContainInContacts(Entity entity)
