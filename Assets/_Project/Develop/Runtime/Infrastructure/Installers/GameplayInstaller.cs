@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature;
 using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
@@ -18,6 +19,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.Installers
             Container.Bind<BrainsFactory>().AsSingle();
             Container.Bind<MainHeroFactory>().AsSingle();
             Container.Bind<EnemiesFactory>().AsSingle();
+            Container.Bind<StagesFactory>().AsSingle();
             Container.Bind<AIBrainsContext>().AsSingle();
             Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
         }

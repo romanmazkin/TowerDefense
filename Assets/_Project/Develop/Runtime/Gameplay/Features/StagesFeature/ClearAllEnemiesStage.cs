@@ -4,17 +4,16 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
 {
     public class ClearAllEnemiesStage : IStage
     {
         private ClearAllEnemiesStageConfig _config;
-
         private ReactiveEvent _completed = new();
-
         private EnemiesFactory _enemiesFactory;
-
         private EntitiesLifeContext _entitiesLifeContext;
 
         private bool _inProcess;
@@ -22,8 +21,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
         private Dictionary<Entity, IDisposable> _spawnedEnemiesToRemoveReason = new();
 
         public ClearAllEnemiesStage(
-            ClearAllEnemiesStageConfig config,
-            EnemiesFactory enemiesFactory,
+            ClearAllEnemiesStageConfig config, 
+            EnemiesFactory enemiesFactory, 
             EntitiesLifeContext entitiesLifeContext)
         {
             _config = config;
