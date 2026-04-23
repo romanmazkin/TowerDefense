@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroConfig: {fileID: 11400000, guid: 6c9564c434254594db3074811d6e0b91, type: 2}
-  _skeletonConfig: {fileID: 11400000, guid: 8cb5fe3fd6760f9408b40679524df9b9, type: 2}
+  _stageConfig: {fileID: 11400000, guid: 9b5e05805e656054eb0884ad2b164d8b, type: 2}
 --- !u!1 &1991603738
 GameObject:
   m_ObjectHideFlags: 0

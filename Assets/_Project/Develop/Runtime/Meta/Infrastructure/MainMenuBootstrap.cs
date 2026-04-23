@@ -45,7 +45,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new SceneLoadingData(2)));
+                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))

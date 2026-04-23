@@ -60,7 +60,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _entitiesLifeContext?.Update(Time.deltaTime);
 
             if (Input.GetKeyDown(KeyCode.F))
+            {
                 _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu));
+            }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

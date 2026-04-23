@@ -2,8 +2,8 @@
 
 namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
 {
-    public interface ISceneLoader
+    public interface ILevelLoader
     {
-        public IEnumerator LoadAsync(string sceneName);
+        IEnumerator LoadAsync(LevelLoadingData levelLoadingData);
     }
 }

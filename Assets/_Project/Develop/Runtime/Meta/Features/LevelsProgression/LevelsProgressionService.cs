@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression
 
         public bool IsLeveCompeted(int levelNumber) => _completedLevels.Contains(levelNumber);
 
-        public void AddLeveToCompeted(int levelNumber)
+        public void AddLevelToCompeted(int levelNumber)
         {
             if(IsLeveCompeted(levelNumber))
                 return; 
@@ -26,7 +26,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression
             _completedLevels.Add(levelNumber);
         }
 
-        public bool CanPay(int leveNumber)
+        public bool CanPlay(int leveNumber)
         {
             return leveNumber == FirstLevel || PreviousLevelCompleted(leveNumber); 
         }

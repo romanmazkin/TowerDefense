@@ -21,8 +21,8 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay
         private EnemiesFactory _enemiesFactory;
 
         [SerializeField] private HeroConfig _heroConfig;
-
         [SerializeField] private StageConfig _stageConfig;
+
         private StagesFactory _stagesFactory;
         private IStage _stage;
         

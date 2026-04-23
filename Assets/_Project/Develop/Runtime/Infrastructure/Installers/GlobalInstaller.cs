@@ -67,7 +67,7 @@ public class GlobalInstaller : MonoInstaller
     private void BindLoader()
     {
         Container.Bind<ZenjectSceneLoaderWrapper>().AsSingle();
-        Container.BindInterfacesAndSelfTo<SceneLoaderService>().AsSingle();
+        Container.BindInterfacesTo<SceneLoaderService>().AsSingle();
     }
 
     private WalletService CreateWalletService()

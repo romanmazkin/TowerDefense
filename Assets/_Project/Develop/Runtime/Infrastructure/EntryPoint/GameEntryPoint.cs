@@ -20,7 +20,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
         WalletService _walletService;
 
         [Inject]
-        private void Construct(
+        public void Construct(
             ICoroutinesPerformer coroutinesPerformer,
             ConfigsProviderService configsProviderService,
             ILoadingScreen standartLoadingScreen,
@@ -80,7 +80,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             Debug.Log("Switch scene");
 
-            yield return _sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new SceneLoadingData(1));
+            yield return _sceneSwitcherService.ProcessSwitchTo(Scenes.MainMenu);
         }
     }
 }

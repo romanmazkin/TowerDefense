@@ -36,7 +36,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         {
             _view.SetLevel(_levelNumber.ToString());
 
-            if (_levelsService.CanPay(_levelNumber))
+            if (_levelsService.CanPlay(_levelNumber))
             {
                 if (_levelsService.IsLeveCompeted(_levelNumber))
                     _view.SetComplete();
@@ -68,14 +68,14 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
         private void OnViewClicked()
         {
-            if(_levelsService.CanPay(_levelNumber) == false)
+            if(_levelsService.CanPlay(_levelNumber) == false)
             {
                 Debug.Log("Level blocked");
                 return;
             }
 
             _coroutinesPerformer
-                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new SceneLoadingData(_levelNumber)));
+                .StartPerform(_sceneSwitcherService.ProcessSwitchTo(Scenes.Gameplay, new LevelLoadingData(_levelNumber)));
         }
     }
 }

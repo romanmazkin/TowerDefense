@@ -32,7 +32,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
         public void Cleanup(Entity entity)
         {
             foreach (Collider collder in GetComponentsInChildren<Collider>())
+            {
+                if(collder != null)
                 _registeryService.Unregister(collder);
+            }
 
             _linkedEntity = null;
         }

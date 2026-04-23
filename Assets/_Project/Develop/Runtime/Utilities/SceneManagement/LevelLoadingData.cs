@@ -1,12 +1,11 @@
 ﻿namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
 {
-    public class SceneLoadingData
+    public class LevelLoadingData
     {
-        public SceneLoadingData(int level)
+        public LevelLoadingData(int level)
         {
             Level = level;
         }
-
         public int Level {  get; }
     }
 }

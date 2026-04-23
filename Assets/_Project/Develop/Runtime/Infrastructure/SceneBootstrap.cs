@@ -6,7 +6,7 @@ namespace Assets._Project.Develop.Runtime.Infrastructure
 {
     public abstract class SceneBootstrap : MonoBehaviour
     {
-        public abstract IEnumerator Initialize(/*SceneLoadingData sceneLoadingData*/);
+        public abstract IEnumerator Initialize();
 
         public abstract void Run();
     }

@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
         private readonly Dictionary<Entity, MonoEntity> _entityToMono = new();
 
         [Inject]
-        private void Construct(
+        public void Construct(
             ResourcesAssetsLoader resourcesAssetsLoader,
             EntitiesLifeContext entitiesLifeContext,
             CollidersRegisteryService collidersRegisteryService)
