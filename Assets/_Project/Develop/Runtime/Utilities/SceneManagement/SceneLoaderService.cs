@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
 {
-    public class SceneLoaderService : ISceneLoader, ILevelLoader
+    public class SceneLoaderService : ISceneLoader
     {
         private readonly ZenjectSceneLoaderWrapper _sceneLoaderWrapper;
 
@@ -20,11 +20,11 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
             yield return _sceneLoaderWrapper.LoadAsync(null, sceneName);
         }
 
-        public IEnumerator LoadAsync(LevelLoadingData levelLoadingData)
+        public IEnumerator LoadAsync(string sceneName, SceneLoadingData sceneLoadingData)
         {
             yield return _sceneLoaderWrapper.LoadAsync(container =>
             {
-                container.BindInstance(levelLoadingData);
+                container.BindInstance(sceneLoadingData);
             }, Scenes.Gameplay);
         }
     }

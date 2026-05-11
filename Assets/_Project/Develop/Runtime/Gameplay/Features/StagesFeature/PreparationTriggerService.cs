@@ -36,7 +36,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.StagesFeature
             _nextStageTriggerContacts = _nextStageTrigger.ContactEntitiesBuffer;
         }
 
-        public void Update(Time deltaTime)  
+        public void Update(float deltaTime)  
         {
             if (_nextStageTrigger == null)
                 return;

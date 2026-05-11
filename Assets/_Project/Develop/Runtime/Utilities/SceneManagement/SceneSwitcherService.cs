@@ -10,32 +10,29 @@ namespace Assets._Project.Develop.Runtime.Utilities.SceneManagement
     public class SceneSwitcherService
     {
         ISceneLoader _sceneLoader;
-        ILevelLoader _levelLoader;
         ILoadingScreen _loadingScreen;
 
         public SceneSwitcherService(
             ISceneLoader sceneLoader, 
-            ILevelLoader levelLoader, 
             ILoadingScreen loadingScreen)
         {
             _sceneLoader = sceneLoader;
-            _levelLoader = levelLoader;
             _loadingScreen = loadingScreen;
         }
 
-        public IEnumerator ProcessSwitchTo(string sceneName, LevelLoadingData levelLoadingData = null)
+        public IEnumerator ProcessSwitchTo(string sceneName, SceneLoadingData sceneLoadingData = null)
         {
             _loadingScreen.Show();
 
             //yield return _sceneLoader.LoadAsync(Scenes.Empty);
 
             if (sceneName == Scenes.Gameplay)
-                yield return _levelLoader.LoadAsync(levelLoadingData);
+                yield return _sceneLoader.LoadAsync(sceneName, sceneLoadingData);
             else
                 yield return _sceneLoader.LoadAsync(sceneName);
 
-            if (levelLoadingData != null)
-                Debug.Log($"Loaded scene {sceneName} with level {levelLoadingData.Level}");
+            if (sceneLoadingData != null)
+                Debug.Log($"Loaded scene {sceneName} with level {sceneLoadingData.Level}");
             else
                 Debug.Log($"Loaded scene {sceneName} without levels");
 

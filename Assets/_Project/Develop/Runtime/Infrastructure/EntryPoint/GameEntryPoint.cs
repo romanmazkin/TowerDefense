@@ -63,10 +63,10 @@ namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 
             bool isPlayerDataSaveExists = false;
 
-            yield return _playerDataProvider.Exists(result => isPlayerDataSaveExists = result);
+            yield return _playerDataProvider.ExistsAsync(result => isPlayerDataSaveExists = result);
 
             if (isPlayerDataSaveExists)
-                yield return _playerDataProvider.Load();
+                yield return _playerDataProvider.LoadAsync();
             else
                 _playerDataProvider.Reset();
 
